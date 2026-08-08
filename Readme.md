@@ -1,74 +1,73 @@
 # Task Manager API
 
-This is a simple project to manage a list of tasks. It uses **Node.js** and **Express**. It saves all your data inside a text file called `tasks.json`.
+This is my backend API for managing a list of tasks. It is built using Node.js and Express. The data is saved locally inside a file called `tasks.json`.
 
 ---
 
-## 🛠️ Tools Used
+## How to Set Up and Run
 
-* **Node.js**: The software used to run JavaScript code on a computer.
-* **Express**: A tool used to build website routes easily.
-* **Tap & Supertest**: Tools used to test the code and check for errors.
+1. **Install tools**  
+   Open your terminal in this project folder and run:
+   ```bash
+   npm install
+   ```
 
----
+2. **Start the server**  
+   To start running the API locally, run:
+   ```bash
+   npm start
+   ```
+   The server will run on `http://localhost:3000`.
 
-## 🚀 How to Install and Run
-
-### 1. Install Dependencies
-Open your computer terminal in this project folder and type this command to download the required tools:
-```bash
-npm install
-```
-
-### 2. Start the Server
-To turn on your API server, run this command:
-```bash
-npm start
-```
-Your server is now open and waiting for requests at: `http://localhost:3000`
+3. **Run the tests**  
+   To verify that all the test cases pass, run:
+   ```bash
+   npm test
+   ```
 
 ---
 
-## 🧪 How to Run Tests
+## API Endpoints & Testing
 
-To check if your code has any errors and ensure it passes all instructor requirements, close your active server and run this command:
-```bash
-npm test
-```
+All routes start with `/tasks`. You can test these in Postman by sending a JSON body when required.
 
----
+### 1. Get All Tasks
+* **Method:** GET  
+* **URL:** `http://localhost:3000/tasks`  
+* **Response:** `200 OK` with an array of tasks.
 
-## 🛣️ API Paths (Endpoints)
+### 2. Get Single Task
+* **Method:** GET  
+* **URL:** `http://localhost:3000/tasks/1`  
+* **Response:** `200 OK` if found, or `404 Not Found`.
 
-All website paths start with `/tasks`.
+### 3. Create a Task
+* **Method:** POST  
+* **URL:** `http://localhost:3000/tasks`  
+* **JSON Body Example:**
+  ```json
+  {
+    "title": "Set up environment",
+    "description": "Install Node.js and npm",
+    "completed": false
+  }
+  ```
+* **Response:** `201 Created` with the new task data.
 
-| Action | Path | What it does | Response Code |
-| :--- | :--- | :--- | :--- |
-| **GET** | `/tasks` | Shows a list of all your tasks | `200 OK` |
-| **GET** | `/tasks/:id` | Shows only one task by its ID number | `200 OK` / `404 Not Found` |
-| **POST** | `/tasks` | Creates and saves a new task | `201 Created` / `400 Bad Request` |
-| **PUT** | `/tasks/:id` | Changes the details of an existing task | `200 OK` / `400` / `404` |
-| **DELETE** | `/tasks/:id` | Removes a task completely | `200 OK` / `404 Not Found` |
+### 4. Update a Task
+* **Method:** PUT  
+* **URL:** `http://localhost:3000/tasks/1`  
+* **JSON Body Example:**
+  ```json
+  {
+    "title": "Updated Title",
+    "description": "Updated Description",
+    "completed": true
+  }
+  ```
+* **Response:** `200 OK` with the updated task list.
 
-### Example Data Format (JSON Payload)
-
-When you make a **POST** or **PUT** request using Postman, send your data exactly like this:
-```json
-{
-  "title": "Set up environment",
-  "description": "Install Node.js, npm, and git",
-  "completed": true
-}
-```
-
----
-
-## 📁 Project Structure
-
-* **data/tasks.json**: The file where your tasks are saved.
-* **routes/taskRoutes.js**: Handles the website path links.
-* **controllers/taskController.js**: Checks if data sent by the user is correct.
-* **models/taskModal.js**: Handles reading and writing data inside the `tasks.json` file.
-* **test/server.test.js**: The automatic testing code.
-* **app.js**: Sets up the Express application.
-* **package.json**: Holds information about scripts and dependencies.
+### 5. Delete a Task
+* **Method:** DELETE  
+* **URL:** `http://localhost:3000/tasks/1`  
+* **Response:** `200 OK` with the remaining tasks array.
